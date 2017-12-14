@@ -1,0 +1,6 @@
+<?php
+
+//ema test 
+phpinfo();
+
+?>
