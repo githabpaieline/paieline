@@ -47,7 +47,7 @@
 		<?php $this->load->view('_partials/language_switcher'); ?>
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<a href='#'>
+				<a href="<?php echo site_url('Inscription/inscription_form') ?>">
 					Inscription
 					<i class="fa fa-user fa-fw"></i> 
 				</a>
