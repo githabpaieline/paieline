@@ -1,5 +1,5 @@
 <html>
-    <head>
+    <head><br/><br/><br/>
         <title>Inscription sur Pailine</title>
         <link href='http://fonts.googleapis.com/css?family=Marcellus' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="http://localhost/paieline/css/styles.css">

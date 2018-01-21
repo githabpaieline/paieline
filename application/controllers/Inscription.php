@@ -8,7 +8,8 @@ class Inscription extends MY_Controller {
     }
 
     function inscription_form() { 
-        $this->load->view('form_inscription');
+        //$this->load->view('form_inscription');
+        $this->render('form_inscription', 'full_width');
     } 
     function send_validation_email() { 
     	$this->load->library('form_validation');
