@@ -53,7 +53,7 @@
 				</a>
 			</li>
 			<li>
-				<a href='#'>
+				<a href='<?php echo site_url('Connexion/connexion_form') ?>'>
 					Connnexion
 					<i class="fa fa-unlock fa-fw"></i> <!-- <i class="fa fa-caret-down"></i> -->
 				</a>
