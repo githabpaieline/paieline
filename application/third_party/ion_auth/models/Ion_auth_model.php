@@ -2279,4 +2279,10 @@ class Ion_auth_model extends CI_Model
 		else
 		    return $result->email;
 	} 
+	function update_user_by_email($email, $entreprise, $hash){
+		        $donnee = array('entreprise' => $entreprise, 'hash' => $hash);
+                $this->db->set($donnee);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+	}
 }

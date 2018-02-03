@@ -40,6 +40,7 @@ class Inscription extends MY_Controller {
         $entreprise = $this->input->post('entreprise');
         $password = 'Zx'.$entreprise.'@';
         $username = explode("@", $email)[0];
+        $hash = md5(rand(0, 1000));
 
         //insertion dans la bd avec le status 0 (ou inactif)
         $data= array('first_name' => $prenom ,
@@ -47,15 +48,44 @@ class Inscription extends MY_Controller {
                                  'username' => $username ,
                                  'email' => $email,
                                  'entreprise' => $entreprise,
-                                 'hash' => md5(rand(0, 1000)),
-                                 'password' => md5($password),
+                                 'hash' => $hash,
+                                 //'password' => md5($password),
                                  'created_on' => date('Y-m-d'));
 
         //verification de l'email
         $existe = $this->ion_auth_model->email_existe_deja($email);   
         if ($existe == false) {
         //fin verificationemail
-                $this->db->insert('users',$data);
+                //$this->db->insert('users',$data);
+
+                /////////////////////////////////////////////
+                // proceed to create user
+            $identity = empty($username) ? $email : $username;
+            $additional_data = array(
+                'first_name'    => $prenom,
+                'last_name'     => $nom,
+            );
+           // $groups = $this->input->post('groups');
+            $user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, null); 
+
+            if ($user_id)
+            {
+                $user_id_bis = $this->ion_auth_model->update_user_by_email($email, $entreprise, $hash); 
+                // success
+                $messages = $this->ion_auth->messages();
+                $this->system_message->set_success($messages);
+
+                // directly activate user
+                $this->ion_auth->activate($user_id);
+            }
+            else
+            {
+                // failed
+                $errors = $this->ion_auth->errors();
+                $this->system_message->set_error($errors);
+            }
+           // refresh();
+                /////////////////////////////////////////////
                 //$this->session->set_flashdata("success","Votre inscription s'est effectué avec succés, veuillez attendre l'activation de votre compte");
                 //redirect("login/register","refresh");
         
@@ -86,7 +116,7 @@ class Inscription extends MY_Controller {
                     'Bonjour '.$prenom.' '.$nom.'! 
                      veuillez cliquer sur le lien suivant pour valider votre inscription:
                      ' . base_url() . 'index.php/Inscription/verify?' . 
-                     'email=' . $_POST['email'] . '&hash=' . $data['hash'] .'  '.'Login = '.$username.' Mot de passe = '.$password;
+                     'email=' . $_POST['email'] . '&hash=' . $data['hash'] .'  '.'Login = '.$username.', Mot de passe = '.$password;
      
                    /*-----------email body ends-----------*/        
             $this->email->message($message);
