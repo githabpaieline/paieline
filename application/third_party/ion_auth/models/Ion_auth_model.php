@@ -2264,6 +2264,19 @@ class Ion_auth_model extends CI_Model
 		        $donnee = array('is_verified' => 1);
                 $this->db->set($donnee);
                 $this->db->where('email', $email);
+                $this->db->where('is_verified', 0);
                 $this->db->update('users');
 	}
+    //verification pour eviter d'enregistrer 2 fois le meme email 
+	function email_existe_deja($email){
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where(array('email' => $email));
+		$query = $this->db->get();
+		$result = $query->row();
+		if (empty($result->email))
+			return false;
+		else
+		    return $result->email;
+	} 
 }
