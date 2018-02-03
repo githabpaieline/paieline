@@ -2247,4 +2247,23 @@ class Ion_auth_model extends CI_Model
 		// just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+
+
+
+	///////////////////////////////////////////////////////////////////////paieline////////////////////////////////
+	public function get_hash_value($email){
+		$this->db->select('hash');
+		$this->db->from('users');
+		$this->db->where(array('email' => $email));
+		$query = $this->db->get();
+		$result = $query->row();
+		return $result->hash;
+		//return $query['hash'];
+	}
+	function verify_user($email){
+		        $donnee = array('is_verified' => 1);
+                $this->db->set($donnee);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+	}
 }
