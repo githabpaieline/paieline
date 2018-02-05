@@ -2297,4 +2297,42 @@ class Ion_auth_model extends CI_Model
 		// just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+
+
+
+	///////////////////////////////////////////////////////////////////////paieline////////////////////////////////
+	public function get_hash_value($email){
+		$this->db->select('hash');
+		$this->db->from('users');
+		$this->db->where(array('email' => $email));
+		$query = $this->db->get();
+		$result = $query->row();
+		return $result->hash;
+		//return $query['hash'];
+	}
+	function verify_user($email){
+		        $donnee = array('is_verified' => 1);
+                $this->db->set($donnee);
+                $this->db->where('email', $email);
+                $this->db->where('is_verified', 0);
+                $this->db->update('users');
+	}
+    //verification pour eviter d'enregistrer 2 fois le meme email 
+	function email_existe_deja($email){
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where(array('email' => $email));
+		$query = $this->db->get();
+		$result = $query->row();
+		if (empty($result->email))
+			return false;
+		else
+		    return $result->email;
+	} 
+	function update_user_by_email($email, $entreprise, $hash){
+		        $donnee = array('entreprise' => $entreprise, 'hash' => $hash);
+                $this->db->set($donnee);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+	}
 }
