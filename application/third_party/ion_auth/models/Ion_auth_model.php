@@ -856,6 +856,45 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
 		return FALSE;
 	}
+	/**
+	 * create_group
+	 *
+	 * @author aditya menon
+	*/
+	public function register_devise($libelle = FALSE, $libelle_court = '')
+	{
+		// bail if the client libelle was not passed
+		if(!$libelle)
+		{
+			$this->set_error('group_name_required');
+			return FALSE;
+		}
+
+		// bail if the client name already exists
+		$existing_devise = $this->db->get_where($this->tables['devise'], array('libelle' => $libelle))->num_rows();
+		if($existing_devise !== 0)
+		{
+			$this->set_error('devise_already_exists');
+			return FALSE;
+		}
+		$date_create = date("Y-m-d H:i:s");
+		$date_modif = date("Y-m-d H:i:s");
+		$data = array('libelle'=>$libelle,'libelle_court'=>$libelle_court,'date_ajout'=>$date_create,'date_modif'=>$date_modif);
+		// filter out any data passed that doesnt have a matching column in the groups table
+		// and merge the set client data and the additional data
+		//if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->tables['groups'], $additional_data), $data);
+
+		$this->trigger_events('extra_group_set');
+
+		// insert the new client
+		$this->db->insert($this->tables['devise'], $data);
+		$devise_id = $this->db->insert_id();
+
+		// report success
+		$this->set_message('devise_creation_successful');
+		// return the brand new devise id
+		return $devise_id;
+	}
 
 	/**
 	 * register
@@ -972,8 +1011,9 @@ class Ion_auth_model extends CI_Model
 			$this->hash_password($password);
 
 			$this->trigger_events('post_login_unsuccessful');
-			$this->set_error('login_timeout');
-
+			$this->set_error('');
+			$this->session->set_flashdata("error","login_timeout");
+				
 			return FALSE;
 		}
 
@@ -989,6 +1029,8 @@ class Ion_auth_model extends CI_Model
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
+					$this->session->set_flashdata("error","Votre compte n'est pas encore activité, veuillez contacter l'administrateur !!");
+				
 
 					return FALSE;
 				}
@@ -1009,6 +1051,14 @@ class Ion_auth_model extends CI_Model
 
 				return TRUE;
 			}
+			else{
+
+			$this->session->set_flashdata("error","Mot de passe invalide");
+			}
+		}
+		else{
+
+			$this->session->set_flashdata("error","Nom d'utilisateur ou Mot de passe invalide");
 		}
 
 		// Hash something anyway, just to take up time

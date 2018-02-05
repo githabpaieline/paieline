@@ -67,17 +67,17 @@
 
                 <form action="<?php echo site_url('login') ?>" method="post">
                   <div class="form-group">
-                    <label for="username">Nom d'utilisateur</label>
+                    <label for="username">VOTRE EMAIL</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur">
                   </div>
                   <div class="form-group">
-                    <label for="password">Mot de passe</label>
+                    <label for="password">MOT DE PASSE</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
                   </div>  <!-- <div class="checkbox">
             <label><input type="checkbox" name="remember"> Se rappeler de moi</label>
           </div> -->
                     
-                  <button type="submit" style="background-color:#1DB9B8; color:#000000" class="btn btn-lg btn-block">Connexion</button>
+                  <button type="submit" style="background-color:#1DB9B8; color:#000000" class="btn btn-lg btn-block">SE CONNECTER</button>
                   &nbsp;&nbsp;
                  <!-- <div align="center" style="font-size:10px">
                   Développé par: <a href="http://www.snsoftware.com" target="_blank"><strong>Sn Software </strong></a>

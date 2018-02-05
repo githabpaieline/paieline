@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'vps43946.lws-hosting.com',
+	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'pjjlKLvN54',
+	'password' => 'passer',
 	'database' => 'paieline_bdd',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

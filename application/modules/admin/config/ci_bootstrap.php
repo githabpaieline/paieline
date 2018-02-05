@@ -84,6 +84,15 @@ $config['ci_bootstrap'] = array(
 				'Admin User Groups'		=> 'panel/admin_user_group',
 			)
 		),
+		'devise' => array(
+			'name'		=> 'Gestion Devise',
+			'url'		=> 'devise',
+			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'Liste Devise'			=> 'devise',
+				'Ajouter Devise'		=> 'devise/create',
+			)
+		),
 		'util' => array(
 			'name'		=> 'Utilities',
 			'url'		=> 'util',
