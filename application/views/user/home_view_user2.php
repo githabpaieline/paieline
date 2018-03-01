@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Bonjour Abdoulaye !!!
+        Bonjour Abdoulaye
         <small>Bienvenue sur Paieline !!!</small>
       </h1>
       <ol class="breadcrumb">
