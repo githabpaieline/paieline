@@ -72,7 +72,11 @@ class Inscription extends MY_Controller {
             {
                 $user_id_bis = $this->ion_auth_model->update_user_by_email($email, $entreprise, $hash); 
                 // success
+
                 $messages = $this->ion_auth->messages();
+
+                //$messages = $this->ion_auth->messages();
+                
                 //$this->system_message->set_success($messages);
 
                 // directly activate user

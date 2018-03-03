@@ -35,15 +35,18 @@ class Login extends MY_Controller{
 				redirect("user/home","refresh");
 			}
 			else{
-
-				$this->session->set_flashdata("error","Nom d utilisateur ou Mot de passe invalide");
+				
+				
+				//$this->session->set_flashdata("error","Nom d'utilisateur ou Mot de passe invalide");
+				
 				//$this->load->view('login_view');
 				$this->render('form_connexion', 'full_width');
 				
 			}
 		}
 		else{
-			$this->load->view('login_view',true);
+				//$this->load->view('login_view',true);
+				$this->render('form_connexion', 'full_width');
 		}
 	}
 	public function alerte(){

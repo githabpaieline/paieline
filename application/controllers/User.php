@@ -24,10 +24,12 @@ class User extends MY_Controller {
 			$v=array_count_values($stat_dossier);
 		}	*/	
 			//print_r($v);
-		 $this->mViewData['contents'] = 'user/home_view_user';
+        if(isset($_SESSION['user_logged'])){
+		 $this->mViewData['contents'] = 'user/home_view_user';//'user/facturation';
  
    		 // on charge la page dans le template
    		 $this->load->view('_layouts/default1',  $this->mViewData);
+        }
 		//$this->load->view('home');
 	}
 	 public function getdata() 
