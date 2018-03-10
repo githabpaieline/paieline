@@ -9,6 +9,7 @@
 <body>
     <div class="main">
     <div id="content">
+    <?php echo form_open('Employe/save_employe'); ?>
     <h3 id='form_head'>Ajout Informations personnèlles </h3><br/>
     
     <div id="form_input">
@@ -61,27 +62,35 @@
             <td><?php echo form_label('NUMERO TECH. TEMPORAIRE :'); ?> <?php echo form_error('numtt'); ?></td>
             <td><?php echo form_input(array('id' => 'numtt', 'name' => 'numtt')); ?><br /></td>
             <td></td><td></td><td></td>
-            <td><?php echo form_label('NUMERO IDEN. ATTENTE :'); ?> <?php echo form_error('numia'); ?></td>
-            <td><?php echo form_input(array('id' => 'numia', 'name' => 'numia')); ?><br /></td>
+            <td><?php echo form_label('PERSONNE HANDICAPE:'); ?> <?php echo form_error('handicape'); ?></td>
+            <td><?php $handicape=array('oui' => 'Oui', 'non' => 'Non'); 
+                  echo form_dropdown('handicape',$handicape,'Oui','class = "gui"'); ?>
+             </td>
           </tr>
           <tr>
-            <td><?php echo form_label('PERSONNE HANDICAPE:'); ?> <?php echo form_error('handicape'); ?></td>
-            <td><?php echo form_input(array('id' => 'handicape', 'name' => 'handicape')); ?><br /></td>
-            <td></td><td></td><td></td>
+           
+                    
             <td><?php echo form_label('NOMBRE ENFANT EN CHARGE :'); ?> <?php echo form_error('numia'); ?></td>
             <td><?php echo form_input(array('id' => 'enfant', 'name' => 'enfant')); ?><br /></td>
-          </tr>
-           <tr>
-            <td><?php echo form_label('MODE DE PAIEMENT:'); ?> <?php echo form_error('modepaie'); ?></td>
-            <td><?php echo form_input(array('id' => 'modepaie', 'name' => 'modepaie')); ?><br /></td>
             <td></td><td></td><td></td>
-            <td></td>
-            <td></td>
+            <td><?php echo form_label('MODE DE PAIEMENT:'); ?> <?php echo form_error('modepaie'); ?></td>
+            <td><?php $modepaie=array('virement' => 'Virement', 'cheque' => 'Cheque'); 
+                  echo form_dropdown('modepaie',$modepaie,'Virement','class = "gui"'); ?>
+             </td>
           </tr>
+          
+           <tr>
+            <td><?php echo form_label('IBAN :'); ?> <?php echo form_error('iban'); ?></td>
+            <td><?php echo form_input(array('id' => 'iban', 'name' => 'iban')); ?><br /></td>
+            <td></td><td></td><td></td>
+            <td><?php echo form_label('BIC :'); ?> <?php echo form_error('bic'); ?></td>
+            <td><?php echo form_input(array('id' => 'bic', 'name' => 'bic')); ?><br /></td>
+          </tr>
+           
      </table>
 
 
-        <?php echo form_submit(array('id' => 'submit', 'value' => 'Inscrire')); ?>
+        <?php echo form_submit(array('id' => 'submit', 'value' => 'Enrégistrer')); ?>
     </div>
 
 
