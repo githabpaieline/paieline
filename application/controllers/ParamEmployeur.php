@@ -13,7 +13,7 @@ class ParamEmployeur extends MY_Controller {
 	 public function param_entreprise()
     {   
         $this->load->library('form_builder');
-        $this->load->library('form_validation');
+        //$this->load->library('form_validation');
         //$this->form_validation->set_rules('destinataire','Destinataire','required');
         
 
@@ -80,9 +80,46 @@ class ParamEmployeur extends MY_Controller {
         //$this->mViewData['numero_import'] = $numero_import;
 
        // $this->mViewData['mode_transports'] = $this->ion_auth_model->liste_mode_transport();
-
+              
+         $employes =$this->ion_auth_model->liste_employees();
+         $this->mViewData['employes'] = $employes;
          $this->mViewData['contents'] = 'employeur/param_entreprise';
          // on charge la page dans le template
          $this->load->view('_layouts/default1', $this->mViewData);
     }
+     public function param_generation_bulletin()
+    {   
+        $this->load->library('form_builder');
+        //$this->load->library('form_validation')
+
+         $gen_bulletin = $this->input->post('gen_bulletin');
+         $date_generation = $this->input->post('date_generation');
+        if (isset($_POST['date_ouverture'])) {
+            $timestamp = strtotime(trim($_POST['date_generation']));
+            $date_generation = date("Y-m-d h:i:s", $timestamp);
+            //echo $date_ouverture->format('d-m-Y');
+        }
+         $envoi_auto_bul = $this->input->post('envoi_auto_bul');
+            
+        if($this->form_validation->run()==TRUE){
+
+        $maj_param_gen_bull = $this->ion_auth_model->register_dossier_ot($employeur,$gen_bulletin,
+                                                    $date_generation, $envoi_auto_bul,
+                                                    date("Y-m-d H:i:s"),date("Y-m-d H:i:s"));
+            if ($maj_param_gen_bull)
+            {
+                // success
+                /*$messages = "création du client effectuée avec succés";
+                $this->system_message->set_success($messages);*/
+
+                $this->session->set_flashdata("success","Données enregistrées avec succés");
+                refresh();
+            }
+            
+        }
+         $this->mViewData['contents'] = 'employeur/param_entreprise';
+         // on charge la page dans le template
+         $this->load->view('_layouts/default1', $this->mViewData);
+    }
+
 }

@@ -8,7 +8,8 @@ class User extends MY_Controller {
 	public function __construct(){
 		if(!isset($_SESSION['user_logged'])){
 			$this->session->set_flashdata("error","Veuillez vous connecter avant de voir cette page!!");
-			//redirect("login");            
+			//redirect("login");
+            unset($_SESSION);            
             $this->render('form_connexion', 'full_width');
 		}
 		

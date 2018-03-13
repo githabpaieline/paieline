@@ -2335,4 +2335,22 @@ class Ion_auth_model extends CI_Model
                 $this->db->where('email', $email);
                 $this->db->update('users');
 	}
+	///////////////////////////////////SIDIBE paieline//////////////////////////////////////
+	// Liste des destinataires
+	public function liste_employees(){
+
+		//$id_etat_dossier= $this->id_etat_dossier("DO");
+
+		$this->db->select('*');
+	    $this->db->where('employeur', 1);
+	    //$this->db->or_where('etat_dossier', $id_etat_dossier2);
+	    $this->db->order_by('nom', 'asc');
+	    $query = $this->db->get('lst_employes');
+
+	    if($query->num_rows() > 0){
+	      	return $query->result_array();
+	     } 	
+
+		return "";
+	}
 }

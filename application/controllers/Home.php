@@ -17,7 +17,7 @@ class Home extends MY_Controller {
 		}
 	}
 	public function logout(){
-		$this->session->unset_userdata('logged_in');
+		//$this->session->unset_userdata('logged_in');
 		//$this->session->session_destroy();
 		unset($_SESSION);
 		//redirect(site_url('form_connexion'), 'refresh');
